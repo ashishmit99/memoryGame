@@ -23,18 +23,20 @@ class App extends PureComponent {
     prevCardId: -1,
     //check if game started or not
     gameStarted:false,
-    //
+    //timer seconds
     secondsElapsed:0,
+    //start timer count
     timerCount:1,
+    //track error count
     errorCount:0
   };
-
+//timer tick event called after every second
   tick() {
 		this.setState({
 			secondsElapsed: this.state.secondsElapsed + 1,
 		})
 	};
-
+//populate duplicate card with random values
   static duplicateCard = (range) => {
     var set = [];
     for(var i = 0; i < range; i++){
@@ -44,7 +46,7 @@ class App extends PureComponent {
       return preValue.concat([current, current])
     },[]);
   };
-
+//handle click event of card
   handleClick = event => {
     event.preventDefault();
     if (this.state.timerCount === 1){
@@ -55,6 +57,7 @@ class App extends PureComponent {
     this.setState({
       timerCount: this.state.timerCount + 1
   });
+  //store state of first card
     if (this.state.clickCount === 1)
     {
     this.setState({
@@ -69,7 +72,7 @@ class App extends PureComponent {
         isFlipped: newFlipps,
         clickCount: this.state.clickCount + 1
       }));
-
+//when two cards clicked
       if (this.state.clickCount === 2) {
         this.setState({ clickCount: 1 });
         const prevCardId = this.state.prevCardId;
@@ -80,7 +83,7 @@ class App extends PureComponent {
       }
     }
   };
-
+//check if card values matched or not
   isCardMatch = (card1, card2, card1Id, card2Id) => {
        if (card1 === card2) {
       const hideCard = this.state.shuffledCard.slice();
@@ -104,7 +107,7 @@ class App extends PureComponent {
       }, 1000);
     }
   };
-
+//reset game properties
   restartGame = () => {
     this.setState({
       isFlipped: Array(10).fill(false),
@@ -121,11 +124,11 @@ class App extends PureComponent {
     });
     clearInterval(this.interval);
   };
-
+//check if game is over or not
   isGameOver = () => {
     return this.state.isFlipped.every((element, index, array) => element !== false);
   };
-
+//called when different levels are clicked
   formatBoard=(gameID)=> {
     var cardcount=5;
     switch (gameID) {
@@ -159,7 +162,9 @@ class App extends PureComponent {
        <p><button className="w3-button w3-red" style={{width:'150px'}}  onClick={() => this.formatBoard('3')}>Difficult</button></p>
 				</div>
       <div style={this.state.gameStarted ? {display: 'block'} : {display: 'none'}} >
+      <div style={this.isGameOver()? {display: 'none'} : {display: 'block'}}>
        <Header restartGame={this.restartGame} secondsElapsed={this.state.secondsElapsed} errorCount={this.state.errorCount} />
+      </div>
        { this.isGameOver() ? <GameOver restartGame={this.restartGame} /> :
        
        <div className="grid-container">
