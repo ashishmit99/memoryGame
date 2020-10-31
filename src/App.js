@@ -13,6 +13,8 @@ class App extends PureComponent {
   state = { 
     //array to hold flipped properties of card ,by default it will be false for all card
     isFlipped: Array(10).fill(false),
+    //array tp hold visible property of card
+    isVisible:Array(10).fill(true),
     //array to hold identical sets of cards in random order
     shuffledCard: App.duplicateCard(5).sort(() => Math.random() - 0.5),
     //count of card click
@@ -86,12 +88,16 @@ class App extends PureComponent {
 //check if card values matched or not
   isCardMatch = (card1, card2, card1Id, card2Id) => {
        if (card1 === card2) {
-      const hideCard = this.state.shuffledCard.slice();
-      hideCard[card1Id] = -1;
-      hideCard[card2Id] = -1;
+      // const hideCard = this.state.shuffledCard.slice();
+      // hideCard[card1Id] = -1;
+      // hideCard[card2Id] = -1;
+      const hideCard = this.state.isVisible.slice();
+      hideCard[card1Id] = false;
+      hideCard[card2Id] = false;
       setTimeout(() => {
         this.setState(prevState => ({
-          shuffledCard: hideCard
+          //shuffledCard: hideCard
+          isVisible:hideCard
         }))
       }, 1000);
     } 
@@ -111,6 +117,7 @@ class App extends PureComponent {
   restartGame = () => {
     this.setState({
       isFlipped: Array(10).fill(false),
+      isVisible:Array(10).fill(true),
       shuffledCard: App.duplicateCard(5).sort(() => Math.random() - 0.5),
       clickCount: 1,
       prevSelectedCard: -1,
@@ -145,6 +152,7 @@ class App extends PureComponent {
 			this.setState({
         gameStarted:true,
         isFlipped: Array(flippedCpunt).fill(false),
+        isVisible:Array(flippedCpunt).fill(true),
         shuffledCard: App.duplicateCard(cardcount).sort(() => Math.random() - 0.5)
     })
   };
@@ -154,12 +162,12 @@ class App extends PureComponent {
     return (
       
      <div>
-       <div style={this.state.gameStarted ? {display: 'none'} : {display: 'block'}}>
+       <div style={this.state.gameStarted ? {display: 'none'} : {display: 'block'}} className="justify-center">
        <h3 >Memory Game</h3>
        <h3>Please select a game difficulty</h3>
-       <p><button className="w3-button w3-red" style={{width:'150px'}} onClick={() => this.formatBoard('1')}>Easy</button></p>
-       <p><button className="w3-button w3-red" style={{width:'150px'}}  onClick={() => this.formatBoard('2')}>Medium</button></p>
-       <p><button className="w3-button w3-red" style={{width:'150px'}}  onClick={() => this.formatBoard('3')}>Difficult</button></p>
+       <p><button className="w3-button w3-red" style={{width:'120px'}} onClick={() => this.formatBoard('1')}>Easy</button></p>
+       <p><button className="w3-button w3-red" style={{width:'120px'}}  onClick={() => this.formatBoard('2')}>Medium</button></p>
+       <p><button className="w3-button w3-red" style={{width:'120px'}}  onClick={() => this.formatBoard('3')}>Difficult</button></p>
 				</div>
       <div style={this.state.gameStarted ? {display: 'block'} : {display: 'none'}} >
       <div style={this.isGameOver()? {display: 'none'} : {display: 'block'}}>
@@ -170,7 +178,7 @@ class App extends PureComponent {
        <div className="grid-container">
           {
             this.state.shuffledCard.map((cardNumber, index) => 
-            <div className={cardNumber===-1?"hide-card":""}>
+            <div className={!this.state.isVisible[index]?"hide-card":""} key={index}>
               <Card
                 id={index} 
                 cardNumber={cardNumber} 

@@ -4,8 +4,8 @@ body {
   
   .grid-container {
     display: grid;
-    grid-gap: 1px;
-    grid-template-columns: auto auto auto auto;
+    grid-gap: 10px;
+    grid-template-columns: auto auto auto auto auto ;
     padding: 10px 150px 10px 150px;
   }
   
@@ -34,21 +34,21 @@ body {
   
   .timer {
     color: #5168e9;
-    font-size: 20px;
+    font-size: 15px;
     font-weight: bold;
   }
   
   .restart-button {
-    width: 15em;
-    height: 3em;
+    width: 8em;
+    height: 2em;
     color: white;
     background-color: #5168e9;
     border: 0;
   }
   
   .game-status-text {
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    color: rgb(24, 21, 16);
+    color: #5168e9;
+    font-size: 15px;
     font-weight: bold;
   }
   
@@ -64,73 +64,21 @@ body {
     visibility: hidden;
   }
   
-  .card-front {
-    background-color: #999999;
-    box-shadow: 5px 5px 5px rgba(68, 68, 68, 0.6);
-  }
-  
-  .card-back {
-    font-weight: bold;
-  }
-  
-  .react-card-front {
-    position: unset !important;
-  }
-
-  .start {
-    background-color: blue;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    width: 100vw;
-    position: absolute;
-    height: 100vh;
-    z-index: 1;
-    color: white
-  }
-  
-    .start h1 {
-      font-weight: bold;
-      font-size: 34px;
-      margin: 80px 0 25px;
-    }
-  
-    .start p {
-      font-size: 22px;
-      margin-bottom: 10px;
-    }
-  
-    .start .level {
-      color: pink;
-      text-transform: uppercase;
-      font-size: 18px;
-      display: inline-block;
-      margin: 0 10px;
-    }
-  
-    .start .prompt {
-      font-size: 25px;
-    }
-  
-    .start .time {
-      font-size: 50px;
-      color: yellow;
-      margin-bottom: 20px;
-    }
-  
+ 
+   
     .header {
       background-color: blue;
       color: white;
-      font-size: 22px;
-      height: 50px;
+      font-size: 15px;
+      height: 40px;
       display: flex;
       align-items: center;
       justify-content: center;
       color: white;
     
       @media screen	and (min-width: 728px) {
-        font-size: 30px;
-        height: 60px;
+        font-size: 20px;
+        height: 50px;
       }
     }
  
